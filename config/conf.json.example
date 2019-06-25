@@ -1,0 +1,28 @@
+{
+  "user1": {
+    "apiKey": "",
+    "apiSecret": ""
+  },
+  "user2": {
+    "apiKey": "",
+    "apiSecret": ""
+  },
+
+  "user1_http": {
+    "apiKey": "",
+    "apiSecret": ""
+  },
+  "user2_http": {
+    "apiKey": "",
+    "apiSecret": ""
+  },
+
+  "common": {
+    "ws": {
+      "url": "wss://bitfinex.com/ws/2"
+    },
+    "rest": {
+      "url": "https://api-prv.bitfinex.com"
+    }
+  }
+}
