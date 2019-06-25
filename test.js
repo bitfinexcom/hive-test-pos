@@ -189,7 +189,7 @@ function sendMatchingTrades (connections, trade, mod, next) {
   async.mapSeries(connections, ({ ws, id }, cb) => {
     const amt = mod(id) ? amount.toString() : amount.multipliedBy('-1').toString()
 
-    console.log("sending trade", amt, price.toString())
+    // console.log("sending trade", amt, price.toString())
     const data = {
       cid: Date.now(),
       symbol: symbol,
@@ -204,9 +204,16 @@ function sendMatchingTrades (connections, trade, mod, next) {
 
     const submit = util.callbackify(o.submit).bind(o)
 
-    o.on('update', (err, data) => {
-      console.log(data.status)
-    })
+    const listener = (err, data) => {
+      console.log(data.status, data.id)
+
+      if (/EXECUTED/.test(data.status) || /FILLED/.test(data.status)) {
+        o.removeListener('update', listener)
+        o.removeListeners()
+      }
+    }
+
+    o.on('update', listener)
 
     submit(() => {})
     cb()
